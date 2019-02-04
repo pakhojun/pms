@@ -29,4 +29,10 @@ public interface DepartmentMapper {
     public List<Department> findListLimit(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize,
                                           @Param("queryString") String queryString);
 
+    /**
+     * 添加
+     * @param department
+     */
+    public void insert(Department department);
+
 }

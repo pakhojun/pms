@@ -31,4 +31,9 @@ public class DepartmentServiceImpl implements DepartmentService {
         pageBean.setData(listLimit);
         return pageBean;
     }
+
+    @Override
+    public void insert(Department department) {
+        departmentMapper.insert(department);
+    }
 }

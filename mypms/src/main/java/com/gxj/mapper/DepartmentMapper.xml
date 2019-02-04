@@ -42,4 +42,8 @@
     </select>
 
 
+    <insert id="insert" >
+        insert into department  values (null,#{name},#{employee.id})
+    </insert>
+
 </mapper>

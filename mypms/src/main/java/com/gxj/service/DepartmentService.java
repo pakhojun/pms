@@ -22,4 +22,10 @@ public interface DepartmentService {
      * @return
      */
     public PageBean findPageBean(Map map);
+
+    /**
+     * 添加
+     * @param department
+     */
+    public void insert(Department department);
 }

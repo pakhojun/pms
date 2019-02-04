@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxj.mapper.EmployeeMapper">
+
+    <resultMap id="employeeMap" type="employee">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="sex" column="sex"></result>
+        <result property="brithday" column="brithday"></result>
+        <result property="phone" column="phone"></result>
+        <result property="adress" column="adress"></result>
+        <association property="politicalStatus"  column="psid" select="getEmployee">
+        </association>
+    </resultMap>
+
+    <select id="findList" resultMap="employeeMap">
+        select * from employee
+    </select>
+    
+    <select id="getEmployee" resultType="politicalStatus">
+        select * from politicalstatus where id=#{psid}
+    </select>
+
+
+</mapper>

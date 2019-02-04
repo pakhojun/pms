@@ -1,9 +1,13 @@
 package com.gxj.controller;
 
 import com.gxj.pojo.Department;
+import com.gxj.pojo.Employee;
 import com.gxj.service.DepartmentService;
+import com.gxj.service.EmployeeService;
 import com.gxj.vo.PageBean;
+import com.gxj.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -19,6 +23,9 @@ public class DepartmentController {
 
     @Autowired
     private DepartmentService departmentService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
 
     @RequestMapping("/findList")
@@ -46,4 +53,25 @@ public class DepartmentController {
         return pageBean;
     }
 
+    /**
+     * 加载下拉菜单
+     * @return
+     */
+    @RequestMapping("/loadLeaders")
+    public List<Employee> loadLeaders(){
+        return employeeService.findList();
+    }
+
+
+    @RequestMapping("/add")
+    public Result insert(@RequestBody  Department department){
+
+        try {
+            departmentService.insert(department);
+            return new Result(true,"保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"保存失败");
+        }
+    }
 }
