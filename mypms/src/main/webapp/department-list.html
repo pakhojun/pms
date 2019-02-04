@@ -147,6 +147,13 @@
                 <button class="btn btn-primary"><i class="icon-plus"></i> New User</button>
                 <button class="btn">Import</button>
                 <button class="btn">Export</button>
+
+                <div style="float: right">
+                    <form class="search form-inline">
+                        <input type="text" placeholder="Search..." v-model="queryString">
+                    </form>
+                </div>
+
                 <div class="btn-group">
                 </div>
             </div>
@@ -163,7 +170,7 @@
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="department in departments">
+                    <tr v-for="department in pageBean.data">
                         <td>{{department.id}}</td>
                         <td>{{department.name}}</td>
                         <td>{{department.employee.id}}</td>
@@ -181,12 +188,13 @@
             </div>
             <div class="pagination">
                 <ul>
-                    <li><a href="#">Prev</a></li>
-                    <li><a href="#">1</a></li>
-                    <li><a href="#">2</a></li>
-                    <li><a href="#">3</a></li>
-                    <li><a href="#">4</a></li>
-                    <li><a href="#">Next</a></li>
+                    <li><a href="javascript:void(0);" @click="changePage(pageBean.currentPage-1)">Prev</a></li>
+
+                    <li v-for="page in pageBean.totalPage" :class="{active:pageBean.currentPage==page}">
+                        <a  href="javascript:void(0);" @click="changePage(page)">{{page}}</a></li>
+
+
+                    <li><a href="javascript:void(0);" @click="changePage(pageBean.currentPage+1)">Next</a></li>
                 </ul>
             </div>
 
@@ -210,8 +218,8 @@
             <footer>
                 <hr>
 
-                <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-                                                      target="_blank">网页模板</a></p>
+               <!-- <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板"
+                                                      target="_blank">网页模板</a></p>-->
 
 
                 <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
@@ -238,21 +246,37 @@
     var vue = new Vue({
         el: "#app",
         data: {
-            departments: []
+            pageBean:{},
+            queryString:""
         },
         methods: {
-            findList: function () {
-                this.$http.get('/department/findList').then(function (res) {
-                    vue.departments = res.body;
+            findList: function (page,queryString) {
+                this.$http.get('/department/findPageBean?currentPage='+page+"&queryString="+queryString).then(function (res) {
+                    vue.pageBean = res.body;
                 }, function (res) {
 
                 })
+            },
+            changePage:function (page) {
+                if(page<=0){
+                    return;
+                }
+
+                if(page>vue.pageBean.totalPage){
+                    return;
+                }
+                this.findList(page,vue.queryString);
             }
         },
         mounted: function () {
-            this.findList();
+            this.findList(1,"");
         }
+
     })
+
+    vue.$watch('queryString', function(nval, oval) {
+        this.findList(1,nval);
+    });
 </script>
 
 </body>

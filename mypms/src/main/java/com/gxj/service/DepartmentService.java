@@ -1,8 +1,10 @@
 package com.gxj.service;
 
 import com.gxj.pojo.Department;
+import com.gxj.vo.PageBean;
 
 import java.util.List;
+import java.util.Map;
 
 public interface DepartmentService {
 
@@ -11,4 +13,13 @@ public interface DepartmentService {
      * @return
      */
     public List<Department> findList();
+
+
+    /**
+     * 分页查询
+     * @param currentPage
+     * @param pageSize
+     * @return
+     */
+    public PageBean findPageBean(Map map);
 }

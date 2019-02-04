@@ -19,4 +19,27 @@
     </select>
 
 
+    <!--public Integer count();-->
+    <select id="count" resultType="int">
+        select count(1) from department
+        <where>
+            <if test="queryString!=null and queryString!=''">
+                name like concat("%",#{queryString},"%")
+            </if>
+        </where>
+    </select>
+
+
+    <!--public List<Department> findListLimit(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize);-->
+    <select id="findListLimit" resultMap="departmentMap">
+        select * from department
+        <where>
+            <if test="queryString!=null and queryString!=''">
+                name like concat("%",#{queryString},"%")
+            </if>
+        </where>
+        limit #{startIndex} , #{pageSize}
+    </select>
+
+
 </mapper>
