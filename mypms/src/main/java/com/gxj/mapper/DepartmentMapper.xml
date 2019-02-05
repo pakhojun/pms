@@ -57,4 +57,9 @@
         update department set name=#{name},leaderid=#{employee.id} where id=#{id}
     </update>
 
+
+    <delete id="delete">
+        delete from department where id=#{id}
+    </delete>
+
 </mapper>

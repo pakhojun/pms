@@ -43,4 +43,11 @@ public interface DepartmentService {
      * @param department
      */
     public void update(Department department);
+
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void delete(Integer id);
 }

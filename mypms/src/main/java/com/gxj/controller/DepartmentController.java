@@ -102,4 +102,16 @@ public class DepartmentController {
         }
     }
 
+
+    @RequestMapping("/delete")
+    public Result delete(Integer id){
+        try {
+            departmentService.delete(id);
+            return new Result(true,"删除成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"删除失败");
+        }
+    }
+
 }
