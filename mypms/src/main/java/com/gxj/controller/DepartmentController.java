@@ -74,4 +74,32 @@ public class DepartmentController {
             return new Result(false,"保存失败");
         }
     }
+
+    /**
+     * 回显
+     * @param id
+     * @return
+     */
+    @RequestMapping("/findOne")
+    public Department findOne(Integer id){
+        Department department = departmentService.findOne(id);
+        return department;
+    }
+
+    /**
+     * 修改
+     * @param department
+     * @return
+     */
+    @RequestMapping("/update")
+    public Result update(@RequestBody Department department){
+        try {
+            departmentService.update(department);
+            return new Result(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"修改失败");
+        }
+    }
+
 }

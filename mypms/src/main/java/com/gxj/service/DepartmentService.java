@@ -28,4 +28,19 @@ public interface DepartmentService {
      * @param department
      */
     public void insert(Department department);
+
+
+    /**
+     * 根据id查
+     * @param id
+     * @return
+     */
+    public Department findOne(Integer id);
+
+
+    /**
+     * 修改部门
+     * @param department
+     */
+    public void update(Department department);
 }

@@ -46,4 +46,15 @@
         insert into department  values (null,#{name},#{employee.id})
     </insert>
 
+
+    <!--public Department findOne(Integer id);-->
+    <select id="findOne" resultMap="departmentMap">
+        select * from department where id=#{id}
+    </select>
+
+    <!--public void update(Department department);-->
+    <update id="update">
+        update department set name=#{name},leaderid=#{employee.id} where id=#{id}
+    </update>
+
 </mapper>

@@ -36,4 +36,14 @@ public class DepartmentServiceImpl implements DepartmentService {
     public void insert(Department department) {
         departmentMapper.insert(department);
     }
+
+    @Override
+    public Department findOne(Integer id) {
+        return departmentMapper.findOne(id);
+    }
+
+    @Override
+    public void update(Department department) {
+        departmentMapper.update(department);
+    }
 }
