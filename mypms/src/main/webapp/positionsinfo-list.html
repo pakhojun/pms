@@ -159,25 +159,35 @@
                 <table class="table">
                     <thead>
                     <tr>
-                        <th>部门ID</th>
+                        <th>岗位ID</th>
+                        <th>岗位名称</th>
                         <th>部门名称</th>
-                        <th>领导工号</th>
-                        <th>领导姓名</th>
-                        <th>领导电话</th>
-                        <th>领导地址</th>
+                        <th>部门领导</th>
+                        <th>职位职责</th>
+                        <th>岗位工资</th>
+
+                        <th>岗位津贴</th>
+                        <th>特殊津贴</th>
+                        <th>备注</th>
+                        <th>更新时间</th>
                     </tr>
                     </thead>
                     <tbody>
-                    <tr v-for="department in pageBean.data">
-                        <td>{{department.id}}</td>
-                        <td>{{department.name}}</td>
-                        <td>{{department.employee.id}}</td>
-                        <td>{{department.employee.name}}</td>
-                        <td>{{department.employee.phone}}</td>
-                        <td>{{department.employee.adress}}</td>
+                    <tr v-for="positionsInfo in pageBean.data">
+                        <td>{{positionsInfo.id}}</td>
+                        <td>{{positionsInfo.name}}</td>
+                        <td>{{positionsInfo.department.name}}</td>
+                        <td>{{positionsInfo.department.employee.name}}</td>
+                        <td>{{positionsInfo.content}}</td>
+                        <td>{{positionsInfo.salary}}</td>
+
+                        <td>{{positionsInfo.allowance}}</td>
+                        <td>{{positionsInfo.perquisites}}</td>
+                        <td>{{positionsInfo.remark}}</td>
+                        <td>{{positionsInfo.updateTime}}</td>
                         <td>
-                            <a :href="'department-edit.html?id='+department.id+''"><i class="icon-pencil"></i></a>
-                            <a href="#myModal" role="button" @click="updateId(department.id)" data-toggle="modal"><i class="icon-remove"></i></a>
+                            <a ><i class="icon-pencil"></i></a>
+                            <a href="#myModal" role="button"  data-toggle="modal"><i class="icon-remove"></i></a>
                         </td>
                     </tr>
 
@@ -250,7 +260,7 @@
         },
         methods: {
             findList: function (page,queryString) {
-                this.$http.get('/department/findPageBean?currentPage='+page+"&queryString="+queryString).then(function (res) {
+                this.$http.get('/positionsinfo/findPageBean?currentPage='+page+"&queryString="+queryString).then(function (res) {
                     vue.pageBean = res.body;
                 }, function (res) {
 

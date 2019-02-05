@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gxj.mapper.PositionsInfoMapper">
+
+    <resultMap id="positionsInfoMap" type="positionsInfo">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <result property="content" column="content"></result>
+        <result property="salary" column="salary"></result>
+        <result property="allowance" column="allowance"></result>
+        <result property="perquisites" column="perquisites"></result>
+        <result property="remark" column="remark"></result>
+        <result property="updateTime" column="updateTime"></result>
+        <association property="department"  column="depid" select="getDepartment">
+        </association>
+    </resultMap>
+
+    <resultMap id="departmentMap" type="department">
+        <id property="id" column="id"></id>
+        <result property="name" column="name"></result>
+        <association property="employee"  column="leaderid" select="getEmployee">
+        </association>
+    </resultMap>
+
+    <!--public Integer count();-->
+    <select id="count" resultType="int">
+        select count(1) from positionsinfo
+        <where>
+            <if test="queryString!=null and queryString!=''">
+                name like concat("%",#{queryString},"%")
+            </if>
+        </where>
+    </select>
+
+
+    <!--public List<Department> findListLimit(@Param("startIndex") Integer startIndex,@Param("pageSize") Integer pageSize);-->
+    <select id="findListLimit" resultMap="positionsInfoMap">
+        select * from positionsinfo
+        <where>
+            <if test="queryString!=null and queryString!=''">
+                name like concat("%",#{queryString},"%")
+            </if>
+        </where>
+        limit #{startIndex} , #{pageSize}
+    </select>
+
+
+    <select id="getDepartment" resultMap="departmentMap">
+        select * from department where id=#{depid}
+    </select>
+
+    <select id="getEmployee" resultType="employee">
+        select * from employee where id=#{leaderid}
+    </select>
+
+</mapper>
