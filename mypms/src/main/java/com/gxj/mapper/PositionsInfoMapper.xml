@@ -68,4 +68,9 @@
         update positionsinfo set depid=#{department.id},name=#{name},content=#{content},salary=#{salary},allowance=#{allowance},
         perquisites=#{perquisites},remark=#{remark},updateTime=#{updateTime} where id=#{id}
     </update>
+
+
+    <delete id="delete">
+        delete from positionsinfo where id=#{id}
+    </delete>
 </mapper>

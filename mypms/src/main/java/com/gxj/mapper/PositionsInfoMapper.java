@@ -44,4 +44,11 @@ public interface PositionsInfoMapper {
      * @param positionsInfo
      */
     public void update(PositionsInfo positionsInfo);
+
+
+    /**
+     * 删除
+     * @param id
+     */
+    public void delete(Integer id);
 }

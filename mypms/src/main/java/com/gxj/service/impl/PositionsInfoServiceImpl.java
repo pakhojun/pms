@@ -39,4 +39,9 @@ public class PositionsInfoServiceImpl implements PositionsInfoService {
     public void update(PositionsInfo positionsInfo) {
         positionsInfoMapper.update(positionsInfo);
     }
+
+    @Override
+    public void delete(Integer id) {
+        positionsInfoMapper.delete(id);
+    }
 }

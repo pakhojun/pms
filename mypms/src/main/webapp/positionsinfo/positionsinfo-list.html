@@ -187,7 +187,7 @@
                         <td>{{positionsInfo.updateTime}}</td>
                         <td>
                             <a :href="'positionsinfo-edit.html?id='+positionsInfo.id+''"><i class="icon-pencil"  ></i></a>
-                            <a href="#myModal" role="button"  data-toggle="modal"><i class="icon-remove"></i></a>
+                            <a href="#myModal" role="button"  data-toggle="modal" @click="updateId(positionsInfo.id)"><i class="icon-remove"></i></a>
                         </td>
                     </tr>
 
@@ -219,7 +219,7 @@
                 </div>
                 <div class="modal-footer">
                     <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-                    <button class="btn btn-danger" data-dismiss="modal" @click="deleteDepartment()">删除</button>
+                    <button class="btn btn-danger" data-dismiss="modal" @click="deletePositionsinfo()">删除</button>
                 </div>
             </div>
 
@@ -280,9 +280,9 @@
                 //alert(id)
                 deleteId=id;
             },
-            deleteDepartment:function () {
+            deletePositionsinfo:function () {
                 //alert(deleteId)
-                this.$http.get('/department/delete?id='+deleteId).then(function (res) {
+                this.$http.get('/positionsinfo/delete?id='+deleteId).then(function (res) {
                     if(res.body.success){
                         alert(res.body.message);
                         this.findList(vue.pageBean.currentPage,vue.queryString);
