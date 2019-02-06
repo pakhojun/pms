@@ -53,4 +53,9 @@
         select * from employee where id=#{leaderid}
     </select>
 
+
+    <insert id="insert">
+        insert into positionsinfo values (null,#{department.id},#{name},#{content},#{salary},#{allowance},#{perquisites},#{remark},#{updateTime})
+    </insert>
+
 </mapper>

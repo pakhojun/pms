@@ -24,4 +24,9 @@ public class PositionsInfoServiceImpl implements PositionsInfoService {
         pageBean.setData(listLimit);
         return pageBean;
     }
+
+    @Override
+    public void insert(PositionsInfo positionsInfo) {
+        positionsInfoMapper.insert(positionsInfo);
+    }
 }

@@ -19,21 +19,16 @@
 
     <style type="text/css">
         #line-chart {
-            height: 300px;
-            width: 800px;
+            height:300px;
+            width:800px;
             margin: 0px auto;
             margin-top: 1em;
         }
-
-        .brand {
-            font-family: georgia, serif;
-        }
-
+        .brand { font-family: georgia, serif; }
         .brand .first {
             color: #ccc;
             font-style: italic;
         }
-
         .brand .second {
             color: #fff;
             font-weight: bold;
@@ -53,14 +48,10 @@
     <link rel="apple-touch-icon-precomposed" href="../assets/ico/apple-touch-icon-57-precomposed.png">
 </head>
 
-<!--[if lt IE 7 ]>
-<body class="ie ie6"> <![endif]-->
-<!--[if IE 7 ]>
-<body class="ie ie7 "> <![endif]-->
-<!--[if IE 8 ]>
-<body class="ie ie8 "> <![endif]-->
-<!--[if IE 9 ]>
-<body class="ie ie9 "> <![endif]-->
+<!--[if lt IE 7 ]> <body class="ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <body class="ie ie7 "> <![endif]-->
+<!--[if IE 8 ]> <body class="ie ie8 "> <![endif]-->
+<!--[if IE 9 ]> <body class="ie ie9 "> <![endif]-->
 <!--[if (gt IE 9)|!(IE)]><!-->
 <body class="">
 <!--<![endif]-->
@@ -89,6 +80,8 @@
         <a class="brand" href="index.html"><span class="first">Your</span> <span class="second">Company</span></a>
     </div>
 </div>
+
+
 
 
 <!--菜单-->
@@ -126,109 +119,103 @@
 </div>
 
 
+
 <div class="content" id="app">
 
     <div class="header">
 
-        <h1 class="page-title">Users</h1>
+        <h1 class="page-title">Edit User</h1>
     </div>
 
     <ul class="breadcrumb">
         <li><a href="index.html">Home</a> <span class="divider">/</span></li>
-        <li class="active">Users</li>
+        <li><a href="users.html">Users</a> <span class="divider">/</span></li>
+        <li class="active">User</li>
     </ul>
 
     <div class="container-fluid">
         <div class="row-fluid">
 
             <div class="btn-toolbar">
-                <button class="btn btn-primary" @click="location.href='positionsinfo-add.html'"><i class="icon-plus"></i> 新建</button>
-                <button class="btn">Import</button>
-                <button class="btn">Export</button>
-
-                <div style="float: right">
-                    <form class="search form-inline">
-                        <input type="text" placeholder="Search..." v-model="queryString">
-                    </form>
-                </div>
-
+                <button class="btn btn-primary" @click="save()"><i class="icon-save"></i> Save</button>
+                <a href="department-list.html"  class="btn">返回</a>
                 <div class="btn-group">
                 </div>
             </div>
             <div class="well">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th>岗位ID</th>
-                        <th>岗位名称</th>
-                        <th>部门名称</th>
-                        <th>部门领导</th>
-                        <th>职位职责</th>
-                        <th>岗位工资</th>
-
-                        <th>岗位津贴</th>
-                        <th>特殊津贴</th>
-                        <th>备注</th>
-                        <th>更新时间</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr v-for="positionsInfo in pageBean.data">
-                        <td>{{positionsInfo.id}}</td>
-                        <td>{{positionsInfo.name}}</td>
-                        <td>{{positionsInfo.department.name}}</td>
-                        <td>{{positionsInfo.department.employee.name}}</td>
-                        <td>{{positionsInfo.content}}</td>
-                        <td>{{positionsInfo.salary}}</td>
-
-                        <td>{{positionsInfo.allowance}}</td>
-                        <td>{{positionsInfo.perquisites}}</td>
-                        <td>{{positionsInfo.remark}}</td>
-                        <td>{{positionsInfo.updateTime}}</td>
-                        <td>
-                            <a ><i class="icon-pencil"></i></a>
-                            <a href="#myModal" role="button"  data-toggle="modal"><i class="icon-remove"></i></a>
-                        </td>
-                    </tr>
-
-                    </tbody>
-                </table>
-            </div>
-            <div class="pagination">
-                <ul>
-                    <li><a href="javascript:void(0);" @click="changePage(pageBean.currentPage-1)">Prev</a></li>
-
-                    <li v-for="page in pageBean.totalPage" :class="{active:pageBean.currentPage==page}">
-                        <a  href="javascript:void(0);" @click="changePage(page)">{{page}}</a></li>
-
-
-                    <li><a href="javascript:void(0);" @click="changePage(pageBean.currentPage+1)">Next</a></li>
+                <ul class="nav nav-tabs">
+                    <li class="active"><a href="#home" data-toggle="tab">Profile</a></li>
+                    <!--<li><a href="#profile" data-toggle="tab">Password</a></li>-->
                 </ul>
+                <div id="myTabContent" class="tab-content">
+                    <div class="tab-pane active in" id="home">
+                        <form id="tab">
+                            <label>岗位名称</label>
+                            <input type="text" placeholder="岗位名称" class="input-xlarge" v-model="positionsinfo.name">
+                           <!-- <label>密码</label>
+                            <input type="text" placeholder="密码" v-model="user.password" class="input-xlarge">-->
+                            <label>部门名称</label>
+                            <select name="DropDownTimezone1" id="DropDownTimezone1" class="input-xlarge" v-model="positionsinfo.department.id">
+                                <option :value="department.id"  v-for="(department,index) in departments">{{department.name}}</option>
+                            </select>
+
+                            <!--<label>部门领导</label>
+                            <select name="DropDownTimezone2" id="DropDownTimezone2" class="input-xlarge" v-model="positionsinfo.department.employee.id">
+                                <option :value="employee.id"  v-for="(employee,index) in employees">{{employee.name}}</option>
+                            </select>-->
+
+                            <label>岗位职责</label>
+                            <textarea value="Smith" rows="3" class="input-xlarge" placeholder="岗位职责" v-model="positionsinfo.content"></textarea>
+
+                            <label>岗位工资</label>
+                            <input type="number" placeholder="岗位工资" class="input-xlarge" v-model="positionsinfo.salary">
+
+                            <label>岗位津贴</label>
+                            <input type="number" placeholder="岗位津贴" class="input-xlarge" v-model="positionsinfo.allowance">
+
+                            <label>特殊津贴</label>
+                            <input type="number" placeholder="特殊津贴" class="input-xlarge" v-model="positionsinfo.perquisites">
+
+                            <label>备注</label>
+                            <textarea value="Smith" rows="3" class="input-xlarge" placeholder="备注" v-model="positionsinfo.remark"></textarea>
+
+                            <label>更新时间</label>
+                            <input type="date" placeholder="更新时间" class="input-xlarge" v-model="positionsinfo.updateTime">
+                        </form>
+                    </div>
+                    <div class="tab-pane fade" id="profile">
+                        <form id="tab2">
+                            <label>密码</label>
+                            <input type="password" class="input-xlarge" >
+                           <!-- <div>
+                                <button class="btn btn-primary" @click="save()">Update</button>
+                            </div>-->
+                        </form>
+                    </div>
+                </div>
+
             </div>
 
-            <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
-                 aria-hidden="true">
+            <div class="modal small hide fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-                    <h3 id="myModalLabel">提示</h3>
+                    <h3 id="myModalLabel">Delete Confirmation</h3>
                 </div>
                 <div class="modal-body">
-                    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>
-                        你是否要删除这条记录
-                    </p>
+
+                    <p class="error-text"><i class="icon-warning-sign modal-icon"></i>Are you sure you want to delete the user?</p>
                 </div>
                 <div class="modal-footer">
-                    <button class="btn" data-dismiss="modal" aria-hidden="true">取消</button>
-                    <button class="btn btn-danger" data-dismiss="modal" @click="deleteDepartment()">删除</button>
+                    <button class="btn" data-dismiss="modal" aria-hidden="true">Cancel</button>
+                    <button class="btn btn-danger" data-dismiss="modal">Delete</button>
                 </div>
             </div>
+
 
 
             <footer>
                 <hr>
 
-               <!-- <p class="pull-right">Collect from <a href="http://www.cssmoban.com/" title="网页模板"
-                                                      target="_blank">网页模板</a></p>-->
 
 
                 <p>&copy; 2012 <a href="#" target="_blank">Portnine</a></p>
@@ -241,66 +228,48 @@
 <script src="vue/dist/vue.min.js"></script>
 <script src="js/vue-resource.min.js"></script>
 
-
 <script src="lib/bootstrap/js/bootstrap.js"></script>
 <script type="text/javascript">
     $("[rel=tooltip]").tooltip();
-    $(function () {
-        $('.demo-cancel-click').click(function () {
-            return false;
-        });
+    $(function() {
+        $('.demo-cancel-click').click(function(){return false;});
     });
 
 
-    var vue = new Vue({
-        el: "#app",
-        data: {
-            pageBean:{},
-            queryString:""
-        },
-        methods: {
-            findList: function (page,queryString) {
-                this.$http.get('/positionsinfo/findPageBean?currentPage='+page+"&queryString="+queryString).then(function (res) {
-                    vue.pageBean = res.body;
-                }, function (res) {
 
+    var vue=new Vue({
+        el:"#app",
+        data:{
+            positionsinfo:{department:{id:1,employee:{id:1}}},
+            departments:[],
+            employees:[]
+        },
+        methods:{
+            save:function () {
+                this.$http.post('/positionsinfo/add',vue.positionsinfo).then(function (res) {
+                    if(res.body.success){
+                        alert("保存成功");
+                    }else {
+                        alert("保存失败");
+                    }
                 })
             },
-            changePage:function (page) {
-                if(page<=0){
-                    return;
-                }
-
-                if(page>vue.pageBean.totalPage){
-                    return;
-                }
-                this.findList(page,vue.queryString);
-            },
-            updateId:function(id){
-                //alert(id)
-                deleteId=id;
-            },
-            deleteDepartment:function () {
-                //alert(deleteId)
-                this.$http.get('/department/delete?id='+deleteId).then(function (res) {
-                    if(res.body.success){
-                        alert(res.body.message);
-                        this.findList(vue.pageBean.currentPage,vue.queryString);
-                    }else {
-                        alert(res.body.message);
-                    }
+           /* loadLeaders:function () {
+                this.$http.get('/department/loadLeaders').then(function (res) {
+                    vue.employees=res.body;
+                })
+            },*/
+            loadDepartments:function () {
+                this.$http.get('/department/findList').then(function (res) {
+                    vue.departments=res.body;
                 })
             }
         },
-        mounted: function () {
-            this.findList(1,"");
-        }
-
+        mounted:function () {
+            /*this.loadLeaders();*/
+            this.loadDepartments();
+        },
     })
-
-    vue.$watch('queryString', function(nval, oval) {
-        this.findList(1,nval);
-    });
 </script>
 
 </body>

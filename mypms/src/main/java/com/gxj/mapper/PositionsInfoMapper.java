@@ -22,4 +22,11 @@ public interface PositionsInfoMapper {
      */
     public List<PositionsInfo> findListLimit(@Param("startIndex") Integer startIndex, @Param("pageSize") Integer pageSize,
                                              @Param("queryString") String queryString);
+
+
+    /**
+     * 添加
+     * @param positionsInfo
+     */
+    public void insert(PositionsInfo positionsInfo);
 }

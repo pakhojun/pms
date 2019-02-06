@@ -1,8 +1,11 @@
 package com.gxj.controller;
 
+import com.gxj.pojo.PositionsInfo;
 import com.gxj.service.PositionsInfoService;
 import com.gxj.vo.PageBean;
+import com.gxj.vo.Result;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -35,6 +38,18 @@ public class PositionsInfoController {
 
         PageBean pageBean = positionsInfoService.findPageBean(map);
         return pageBean;
+    }
+
+
+    @RequestMapping("/add")
+    public Result add(@RequestBody PositionsInfo positionsInfo){
+        try {
+            positionsInfoService.insert(positionsInfo);
+            return new Result(true,"保存成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"保存失败");
+        }
     }
 
 }
