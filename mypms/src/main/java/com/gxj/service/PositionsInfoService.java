@@ -20,4 +20,17 @@ public interface PositionsInfoService {
      * @param positionsInfo
      */
     public void insert(PositionsInfo positionsInfo);
+
+    /**
+     * 根据id查
+     * @param id
+     * @return
+     */
+    public PositionsInfo findOne(Integer id);
+
+    /**
+     * 更新
+     * @param positionsInfo
+     */
+    public void update(PositionsInfo positionsInfo);
 }

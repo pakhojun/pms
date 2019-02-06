@@ -52,4 +52,22 @@ public class PositionsInfoController {
         }
     }
 
+
+    @RequestMapping("/findOne")
+    public PositionsInfo findOne(Integer id){
+        return positionsInfoService.findOne(id);
+    }
+
+
+    @RequestMapping("/update")
+    public Result update(@RequestBody PositionsInfo positionsInfo){
+        try {
+            positionsInfoService.update(positionsInfo);
+            return new Result(true,"修改成功");
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new Result(false,"修改失败");
+        }
+    }
+
 }

@@ -29,4 +29,14 @@ public class PositionsInfoServiceImpl implements PositionsInfoService {
     public void insert(PositionsInfo positionsInfo) {
         positionsInfoMapper.insert(positionsInfo);
     }
+
+    @Override
+    public PositionsInfo findOne(Integer id) {
+        return positionsInfoMapper.findOne(id);
+    }
+
+    @Override
+    public void update(PositionsInfo positionsInfo) {
+        positionsInfoMapper.update(positionsInfo);
+    }
 }

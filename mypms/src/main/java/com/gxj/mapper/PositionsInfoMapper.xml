@@ -58,4 +58,14 @@
         insert into positionsinfo values (null,#{department.id},#{name},#{content},#{salary},#{allowance},#{perquisites},#{remark},#{updateTime})
     </insert>
 
+
+    <select id="findOne" resultMap="positionsInfoMap">
+        select * from positionsinfo where id=#{id}
+    </select>
+
+
+    <update id="update">
+        update positionsinfo set depid=#{department.id},name=#{name},content=#{content},salary=#{salary},allowance=#{allowance},
+        perquisites=#{perquisites},remark=#{remark},updateTime=#{updateTime} where id=#{id}
+    </update>
 </mapper>
